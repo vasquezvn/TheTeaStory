@@ -1,6 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
+using System.IO;
 
 namespace ConsoleTheTeaStory
 {
@@ -9,7 +10,13 @@ namespace ConsoleTheTeaStory
         public static IWebDriver Instance { get; set; }
         public static void Initialize()
         {
-            Instance = new ChromeDriver(@"C:\Users\ivan.vasquez\Libraries\Selenium");
+            //Instance = new ChromeDriver(@"C:\Users\ivan.vasquez\Libraries\Selenium");
+
+            string currentDir = Environment.CurrentDirectory;
+            DirectoryInfo directory = new DirectoryInfo(Path.GetFullPath(Path.Combine(currentDir, @"..\..\..\ConsoleTheTeaStory\Resources")));
+            var pathDir = directory.ToString();
+
+            Instance = new ChromeDriver(pathDir);
             Instance.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             Instance.Manage().Window.Maximize();
         }

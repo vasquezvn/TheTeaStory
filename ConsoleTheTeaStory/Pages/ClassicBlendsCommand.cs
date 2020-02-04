@@ -7,8 +7,8 @@ namespace ConsoleTheTeaStory.Pages
         private int quantity;
 
         #region IWebElemets
-        private static IWebElement QuantityTxtBox => Driver.Instance.FindElement(By.XPath("//div[@class='_1ZOt- cell']/div/div/div[@class='_2uERl']/input"));
-        private static IWebElement AddToCartBtn => Driver.Instance.FindElement(By.XPath("//span[@class='buttonnext2195568898--content']/div[@class='StatesButton656985045--text']"));
+        private static IWebElement QuantityTxtBox => Driver.Instance.FindElement(By.XPath("//*[@type='number']"));
+        private static IWebElement AddToCartBtn => Driver.Instance.FindElement(By.XPath("//*[@type='button']"));
         private static IWebElement ViewCartBtn => Driver.Instance.FindElement(By.Id("widget-view-cart-button"));
         private static IWebElement IFrameLayer => Driver.Instance.FindElement(By.ClassName("s_yOSHETPAPopupSkiniframe"));
         #endregion
@@ -23,7 +23,10 @@ namespace ConsoleTheTeaStory.Pages
             QuantityTxtBox.Clear();
             QuantityTxtBox.SendKeys(quantity.ToString());
 
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
+
+            Helper.WaitForElement(AddToCartBtn, 10.0);
+
             AddToCartBtn.Click();
 
             return this;

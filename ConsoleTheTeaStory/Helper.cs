@@ -7,7 +7,7 @@ namespace ConsoleTheTeaStory
 {
     public class Helper
     {
-        private static string LogsPath = @"C:\Users\ivan.vasquez\source\repos\TheTeaStory\ConsoleTheTeaStory\Logs";
+        private static string LogsPath = new DirectoryInfo(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\ConsoleTheTeaStory\Logs"))).ToString();
 
         public static int RandomNumber(int min, int max)
         {
@@ -60,15 +60,12 @@ namespace ConsoleTheTeaStory
             ((ITakesScreenshot)Driver.Instance).GetScreenshot().SaveAsFile(logPathName, ScreenshotImageFormat.Png);
         }
 
-        /*       public static void Wait(int time)
-               {
-                   Thread thread = new Thread(delegate ()
-                   {
-                       System.Threading.Thread.Sleep(time);
-                   });
-                   thread.Start();
-                   while (thread.IsAlive)
-                       Application.DoEvents();
-               }*/
+        public static void WaitForElement(IWebElement element, double time)
+        {
+            WebDriverWait wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(time));
+            wait.Until(ExpectedConditions.ElementToBeClickable(element));
+            //wait.Until(Driver.Instance => element.Displayed);
+        }
+
     }
 }

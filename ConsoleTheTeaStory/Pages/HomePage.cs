@@ -13,7 +13,8 @@ namespace ConsoleTheTeaStory.Pages
         }
 
         #region
-        private static IWebElement ClassicBlendsOption => Driver.Instance.FindElement(By.XPath("//div[@id='comp-jqyzu7u6']/div[@class='comp-jqyzu7u6']/div[@class='_2DDgw']/div[@class='_3e4dm']/div[@class='slick-slider aM2rn slick-initialized']/div[@class='slick-list']/div[@class='slick-track']/div[@class='slick-slide slick-active slick-current']/div/div[@class='_2cw7M']/div/a[@class='_2zTHN _2AHc6']/div[@class='_3RqKm']/h3[@class='_2BULo']"));
+        //private static IWebElement ClassicBlendsOption => Driver.Instance.FindElement(By.XPath("//div[@id='comp-jqyzu7u6']/div[@class='comp-jqyzu7u6']/div[@class='_2DDgw']/div[@class='_3e4dm']/div[@class='slick-slider aM2rn slick-initialized']/div[@class='slick-list']/div[@class='slick-track']/div[@class='slick-slide slick-active slick-current']/div/div[@class='_2cw7M']/div/a[@class='_2zTHN _2AHc6']/div[@class='_3RqKm']/h3[@class='_2BULo']"));
+        private static IWebElement ClassicBlendsOption => Driver.Instance.FindElement(By.XPath("//div[@id='comp-jqyzu7u6']//h3[@class='_2BULo'][text()='Classic Blends']"));
         #endregion
 
 

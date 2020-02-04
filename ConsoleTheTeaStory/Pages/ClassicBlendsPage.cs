@@ -17,7 +17,9 @@ namespace ConsoleTheTeaStory.Pages
         {
             Driver.Instance.SwitchTo().Frame(IFrameLayer);
             //Helper.WaitForElementLoad(Driver.Instance, By.ClassName("item-quantity"), 10);
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(1000);
+
+            Helper.WaitForElement(quantityLabel, 10.0);
 
             var quantityLabelString = quantityLabel.Text.Split()[1];
             var result = false;
