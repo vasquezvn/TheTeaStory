@@ -62,9 +62,20 @@ namespace ConsoleTheTeaStory
 
         public static void WaitForElement(IWebElement element, double time)
         {
-            WebDriverWait wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(time));
-            wait.Until(ExpectedConditions.ElementToBeClickable(element));
-            //wait.Until(Driver.Instance => element.Displayed);
+            DefaultWait<IWebElement> wait = new DefaultWait<IWebElement>(element);
+            wait.Timeout = TimeSpan.FromMinutes(time);
+            wait.PollingInterval = TimeSpan.FromMilliseconds(250);
+
+            Func<IWebElement, bool> waiter = new Func<IWebElement, bool>((IWebElement ele) =>
+            {
+                if(element.Displayed)
+                {
+                    return true;
+                }
+                return false;
+            });
+
+            wait.Until(waiter);
         }
 
     }

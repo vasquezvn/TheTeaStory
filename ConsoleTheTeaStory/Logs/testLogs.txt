@@ -32,3 +32,11 @@
  Introduced quantity doesn't match with quantity in cart. 
 2/4/2020 6:40:38 PM / Assert.IsTrue failed.  
  Introduced quantity doesn't match with quantity in cart. 
+2/5/2020 6:26:20 PM / Assert.IsTrue failed.  
+ Introduced quantity doesn't match with quantity in cart. 
+2/5/2020 6:33:37 PM / Assert.IsTrue failed.  
+ Introduced quantity doesn't match with quantity in cart. 
+2/5/2020 6:34:57 PM / Assert.IsTrue failed.  
+ Introduced quantity doesn't match with quantity in cart. 
+2/5/2020 6:41:25 PM / Assert.IsTrue failed.  
+ Introduced quantity doesn't match with quantity in cart. 

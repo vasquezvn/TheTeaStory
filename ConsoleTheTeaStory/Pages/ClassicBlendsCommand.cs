@@ -20,10 +20,9 @@ namespace ConsoleTheTeaStory.Pages
 
         public ClassicBlendsCommand ClickAddToCart()
         {
+            Helper.WaitForElement(QuantityTxtBox, 10.0);
             QuantityTxtBox.Clear();
             QuantityTxtBox.SendKeys(quantity.ToString());
-
-            //System.Threading.Thread.Sleep(1000);
 
             Helper.WaitForElement(AddToCartBtn, 10.0);
 
