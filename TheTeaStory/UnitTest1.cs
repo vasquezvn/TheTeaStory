@@ -37,17 +37,8 @@ namespace TheTeaStory
             ClassicBlendsPage.SetQuantity(quantity)
                 .ClickAddToCart();
 
-            try
-            {
-                //Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(quantity));
-                Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(Helper.RandomNumber(1, 100)));
-            }
-            catch(AssertFailedException ex)
-            {
-                Helper.LogErrors(ex.Message, "Introduced quantity doesn't match with quantity in cart.");
-                Helper.TakeErrorScreenshot();
-            }
-            
+            //Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(quantity));
+            Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(Helper.RandomNumber(1, 100)), "Introduced quantity doesn't match with quantity in cart.");
         }
 
         [TestCleanup]

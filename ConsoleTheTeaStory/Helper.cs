@@ -28,7 +28,7 @@ namespace ConsoleTheTeaStory
             }
         }
 
-        public static void LogErrors(string assertMessage, string customMessage)
+        public static void LogErrors(string customMessage)
         {
             var logPathName = LogsPath + @"\testLogs.txt";
             try
@@ -37,14 +37,14 @@ namespace ConsoleTheTeaStory
                 {
                     using (var writer = new StreamWriter(logPathName, true))
                     {
-                        writer.Write($"{DateTime.Now} / {assertMessage} \n {customMessage} \n");
+                        writer.Write($"{DateTime.Now} \n {customMessage} \n");
                     }
                 }
                 else
                 {
                     using (var writer = new StreamWriter(logPathName))
                     {
-                        writer.Write($"{DateTime.Now} / {assertMessage} \n {customMessage} \n");
+                        writer.Write($"{DateTime.Now} \n {customMessage} \n");
                     }
                 }
                 

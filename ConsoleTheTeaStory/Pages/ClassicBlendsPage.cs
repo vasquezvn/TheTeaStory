@@ -32,7 +32,14 @@ namespace ConsoleTheTeaStory.Pages
             }
 
             if (quantity == quantityLabelNumber)
+            {
                 result = true;
+            }
+            else
+            {
+                Helper.LogErrors("Introduced quantity doesn't match with quantity in cart.");
+                Helper.TakeErrorScreenshot();
+            }
 
             Driver.Instance.SwitchTo().ParentFrame();
 
