@@ -2,6 +2,11 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.IO;
+using System.Data.SqlClient;
+using System.Data;
+using System.Text;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace ConsoleTheTeaStory
 {
@@ -76,6 +81,96 @@ namespace ConsoleTheTeaStory
             });
 
             wait.Until(waiter);
+        }
+
+        public static void GetData()
+        {
+            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ivan.vasquez\source\repos\TheTeaStory\ConsoleTheTeaStory\Resources\Database1.mdf;Integrated Security=True";
+            SqlConnection cnn = new SqlConnection(connectionString);
+            cnn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT * FROM CLIENTS", cnn);
+
+            SqlDataReader dataReader = command.ExecuteReader();
+
+
+            /*var dataTable = new DataTable();
+            dataTable.Load(dataReader);
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(dataTable);*/
+
+
+            var r = Serialize(dataReader);
+            string json = JsonConvert.SerializeObject(r, Formatting.Indented);
+
+
+            /*DataTable dt = new DataTable();
+            dt.Load(dataReader);
+            output = DataTableToJSONWithStringBuilder(dt);
+            Console.WriteLine(DataTableToJSONWithStringBuilder(dt));*/
+
+
+            cnn.Close();
+        }
+
+        public static string DataTableToJSONWithStringBuilder(DataTable table)
+        {
+            var JSONString = new StringBuilder();
+            if (table.Rows.Count > 0)
+            {
+                JSONString.Append("[");
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    JSONString.Append("{");
+                    for (int j = 0; j < table.Columns.Count; j++)
+                    {
+                        if (j < table.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\",");
+                        }
+                        else if (j == table.Columns.Count - 1)
+                        {
+                            JSONString.Append("\"" + table.Columns[j].ColumnName.ToString() + "\":" + "\"" + table.Rows[i][j].ToString() + "\"");
+                        }
+                    }
+                    if (i == table.Rows.Count - 1)
+                    {
+                        JSONString.Append("}");
+                    }
+                    else
+                    {
+                        JSONString.Append("},");
+                    }
+                }
+                JSONString.Append("]");
+            }
+            return JSONString.ToString();
+        }
+
+        public static IEnumerable<Dictionary<string, object>> Serialize(SqlDataReader reader)
+        {
+            var results = new List<Dictionary<string, object>>();
+            var cols = new List<string>();
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                cols.Add(reader.GetName(i));
+            }
+
+            while (reader.Read())
+                results.Add(SerializeRow(cols, reader));
+
+            return results;
+        }
+
+        private static Dictionary<string, object> SerializeRow(IEnumerable<string> cols, SqlDataReader reader)
+        {
+            var result = new Dictionary<string, object>();
+            foreach(var col in cols)
+            {
+                result.Add(col, reader[col]);
+            }
+
+            return result;
         }
 
     }

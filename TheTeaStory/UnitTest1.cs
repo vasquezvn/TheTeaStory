@@ -26,7 +26,7 @@ namespace TheTeaStory
             Assert.IsTrue(CartPage.IsItemAdded("Classic Blends"));
         }*/
 
-        [TestMethod]
+        /*[TestMethod]
         public void VerifyQuantityInCart()
         {
             HomePage.GoTo();
@@ -39,6 +39,12 @@ namespace TheTeaStory
 
             Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(quantity));
             //Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(Helper.RandomNumber(1, 100)), "Introduced quantity doesn't match with quantity in cart.");
+        }*/
+
+        [TestMethod]
+        public void VerifyData()
+        {
+            Helper.GetData();
         }
 
         [TestCleanup]
