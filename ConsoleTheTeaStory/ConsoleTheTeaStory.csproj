@@ -80,10 +80,13 @@
   <ItemGroup>
     <Compile Include="Driver.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Pages\CartCommand.cs" />
     <Compile Include="Pages\CartPage.cs" />
     <Compile Include="Pages\ClassicBlendsCommand.cs" />
     <Compile Include="Pages\ClassicBlendsPage.cs" />
     <Compile Include="Pages\HomePage.cs" />
+    <Compile Include="Pages\SidePanelCartCommand.cs" />
+    <Compile Include="Pages\SidePanelCartPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

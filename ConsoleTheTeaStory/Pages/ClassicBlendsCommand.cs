@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using System;
 
 namespace ConsoleTheTeaStory.Pages
 {
@@ -6,37 +7,59 @@ namespace ConsoleTheTeaStory.Pages
     {
         private int quantity;
 
-        #region IWebElemets
-        private static IWebElement QuantityTxtBox => Driver.Instance.FindElement(By.XPath("//*[@type='number']"));
-        private static IWebElement AddToCartBtn => Driver.Instance.FindElement(By.XPath("//*[@type='button']"));
-        private static IWebElement ViewCartBtn => Driver.Instance.FindElement(By.Id("widget-view-cart-button"));
-        private static IWebElement IFrameLayer => Driver.Instance.FindElement(By.ClassName("s_yOSHETPAPopupSkiniframe"));
+        #region Locators
+        private By locatorQuantityTxtBox => By.XPath("//*[@type='number']");
+        private By locatorAddToCartBtn => By.XPath("//div[@class='_3j0qu cell']");
+
         #endregion
 
-        public ClassicBlendsCommand(int quantity)
+        #region IWebElemets
+        private IWebElement QuantityTxtBox => Driver.Instance.FindElement(locatorQuantityTxtBox);
+        private IWebElement AddToCartBtn => Driver.Instance.FindElement(locatorAddToCartBtn);
+
+        #endregion
+
+        public ClassicBlendsCommand() { }
+
+        public ClassicBlendsCommand SetQuantity(int quantity)
         {
             this.quantity = quantity;
-        }
 
-        public ClassicBlendsCommand ClickAddToCart()
-        {
-            Helper.WaitForElement(QuantityTxtBox, 10.0);
-            QuantityTxtBox.Clear();
-            QuantityTxtBox.SendKeys(quantity.ToString());
+            Helper.WaitUntilElementVisible(locatorQuantityTxtBox);
 
-            Helper.WaitForElement(AddToCartBtn, 10.0);
-
-            AddToCartBtn.Click();
+            try
+            {
+                QuantityTxtBox.Clear();
+                QuantityTxtBox.SendKeys(quantity.ToString());
+            }
+            catch (Exception ex)
+            {
+                Helper.TakeErrorScreenshot();
+                throw new Exception($"Quantity text box webElement is not found in ClassicBlendsPage \n\nDetails: {ex.Message}");
+            }
+            
 
             return this;
         }
 
-        public void ClickViewCart()
+        public ClassicBlendsCommand ClickAddToCart()
         {
-            Driver.Instance.SwitchTo().Frame(IFrameLayer);
-            ViewCartBtn.Click();
-            Driver.Instance.SwitchTo().ParentFrame();
-            //Driver.Instance.SwitchTo().DefaultContent();
+            Helper.WaitUntilElementClickable(locatorAddToCartBtn);
+
+            try
+            {
+                AddToCartBtn.Click();
+                AddToCartBtn.Click();
+            }
+            catch (Exception ex)
+            {
+                Helper.TakeErrorScreenshot();
+                throw new Exception($"Add button webElement is not found in ClassicBlendsPage \n\nDetails: {ex.Message}");
+            }
+
+            return this;
         }
+
+        
     }
 }

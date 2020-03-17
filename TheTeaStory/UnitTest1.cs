@@ -13,20 +13,21 @@ namespace TheTeaStory
             Driver.Initialize();
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void CanAddItemToCart()
         {
             HomePage.GoTo();
             HomePage.GoToTeaOption(HomePage.TeaOptions.ClassicBlends);
 
             ClassicBlendsPage.SetQuantity(3)
-                .ClickAddToCart()
-                .ClickViewCart();
+                .ClickAddToCart();
 
-            Assert.IsTrue(CartPage.IsItemAdded("Classic Blends"));
-        }*/
+            SidePanelCartPage.ClickViewCart();
 
-        /*[TestMethod]
+            Assert.IsTrue(CartPage.IsItemAdded("Classic Blends"), "Item has no been added to shopping cart");
+        }
+
+        [TestMethod]
         public void VerifyQuantityInCart()
         {
             HomePage.GoTo();
@@ -37,9 +38,8 @@ namespace TheTeaStory
             ClassicBlendsPage.SetQuantity(quantity)
                 .ClickAddToCart();
 
-            Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(quantity));
-            //Assert.IsTrue(ClassicBlendsPage.IsQuantityCorrect(Helper.RandomNumber(1, 100)), "Introduced quantity doesn't match with quantity in cart.");
-        }*/
+            Assert.IsTrue(SidePanelCartPage.IsQuantityCorrect(quantity), "Introduced quantity doesn't match with quantity in cart.");
+        }
 
         [TestMethod]
         public void VerifyData()

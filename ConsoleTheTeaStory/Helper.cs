@@ -21,6 +21,48 @@ namespace ConsoleTheTeaStory
             return random.Next(min, max);
         }
 
+        public static IWebElement WaitUntilElementExists(By elementLocator, int timeout = 10)
+        {
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(timeout));
+                return wait.Until(ExpectedConditions.ElementExists(elementLocator));
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Element with locator: '" + elementLocator + "' was not found in current context page.");
+                throw;
+            }
+        }
+
+        public static IWebElement WaitUntilElementVisible(By elementLocator, int timeout = 10)
+        {
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(timeout));
+                return wait.Until(ExpectedConditions.ElementIsVisible(elementLocator));
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Element with locator: '" + elementLocator + "' was not found.");
+                throw;
+            }
+        }
+
+        public static IWebElement WaitUntilElementClickable(By elementLocator, int timeout = 10)
+        {
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(timeout));
+                return wait.Until(ExpectedConditions.ElementToBeClickable(elementLocator));
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Element with locator: '" + elementLocator + "' was not found in current context page.");
+                throw;
+            }
+        }
+
         public static void WaitForElementLoad(IWebDriver driver, By by, int timeoutInSeconds)
         {
             if(timeoutInSeconds > 0)
@@ -30,6 +72,22 @@ namespace ConsoleTheTeaStory
                 {
                     return d.FindElement(by);
                 });
+            }
+        }
+
+        public static void ClickAndWaitForPageToLoad(By elementLocator, int timeout = 10)
+        {
+            try
+            {
+                var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(timeout));
+                var element = Driver.Instance.FindElement(elementLocator);
+                element.Click();
+                wait.Until(ExpectedConditions.StalenessOf(element));
+            }
+            catch (NoSuchElementException)
+            {
+                Console.WriteLine("Element with locator: '" + elementLocator + "' was not found in current context page.");
+                throw;
             }
         }
 
