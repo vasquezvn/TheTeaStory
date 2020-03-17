@@ -45,7 +45,7 @@ namespace ConsoleTheTeaStory.Pages
 
         public bool IsQuantityCorrect(int quantity)
         {
-            Helper.WaitUntilElementVisible(locatorIFrameLayer);
+            Helper.WaitUntilElementVisible(locatorIFrameLayer, 60);
 
             var result = false;
             var quantityLabelNumber = 0;
