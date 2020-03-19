@@ -42,6 +42,19 @@ namespace TheTeaStory
         }
 
         [TestMethod]
+        public void VerifyInsertDataOnClientTable()
+        {
+            var name = Helper.RandomString(5, true);
+            var lastname = Helper.RandomString(5, true);
+            var email = $"{Helper.RandomString(5, true)}@test.com";
+            var programm = Helper.RandomString(10, true);
+
+            bool isInserted = Helper.InsertToClients(name, lastname, email, programm);
+
+            Assert.IsTrue(isInserted, "Values were not inserted on Client Table");
+        }
+
+        [TestMethod]
         public void VerifyData()
         {
             Helper.GetData();

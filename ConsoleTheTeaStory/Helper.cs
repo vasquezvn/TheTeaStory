@@ -14,6 +14,21 @@ namespace ConsoleTheTeaStory
     {
         private static string LogsPath = new DirectoryInfo(Path.GetFullPath(Path.Combine(Environment.CurrentDirectory, @"..\..\..\ConsoleTheTeaStory\Logs"))).ToString();
 
+        public static string RandomString(int size, bool lowerCase = false)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            if (lowerCase)
+                return builder.ToString().ToLower();
+            return builder.ToString();
+        }
+
         public static int RandomNumber(int min, int max)
         {
             Random random = new Random();
@@ -33,6 +48,25 @@ namespace ConsoleTheTeaStory
                 Console.WriteLine("Element with locator: '" + elementLocator + "' was not found in current context page.");
                 throw;
             }
+        }
+
+        public static bool InsertToClients(string name, string lastname, string email, string programm)
+        {
+            bool result = false;
+
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ivan.vasquez\source\repos\TheTeaStory\ConsoleTheTeaStory\Resources\Database1.mdf;Integrated Security=True");
+            string query = $"INSERT INTO [Clients] values('{name}', '{lastname}', '{email}', '{programm}')";
+
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.Connection.Open();
+            int i = cmd.ExecuteNonQuery();
+
+            if (i > 0)
+                result = true;
+
+            cmd.Connection.Close();
+
+            return result;
         }
 
         public static IWebElement WaitUntilElementVisible(By elementLocator, int timeout = 10)
