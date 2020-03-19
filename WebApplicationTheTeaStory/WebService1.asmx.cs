@@ -33,8 +33,8 @@ namespace WebApplicationTheTeaStory
         {
             bool result = false;
 
-            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["cs"].ConnectionString);
-            string query = $"INSERT INTO [Client] values('{firstName}', '{lastName}', '{email}', '{programme}')";
+            SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["Database1ConnectionString"].ConnectionString);
+            string query = $"INSERT INTO [Clients] values('{firstName}', '{lastName}', '{email}', '{programme}')";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Connection.Open();
             int i = cmd.ExecuteNonQuery();
