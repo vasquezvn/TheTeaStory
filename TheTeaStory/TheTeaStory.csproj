@@ -60,6 +60,10 @@
       <Project>{9743df93-a029-4f75-bc4d-35cd516046d2}</Project>
       <Name>ConsoleTheTeaStory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RestApiTheTeaStory\RestApiTheTeaStory.csproj">
+      <Project>{c99314c7-0f6d-4ec8-92b3-30d18e039199}</Project>
+      <Name>RestApiTheTeaStory</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

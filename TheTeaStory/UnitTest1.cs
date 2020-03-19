@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ConsoleTheTeaStory;
 using ConsoleTheTeaStory.Pages;
+using RestApiTheTeaStory;
+using static RestApiTheTeaStory.Api;
 
 namespace TheTeaStory
 {
@@ -42,16 +44,31 @@ namespace TheTeaStory
         }
 
         [TestMethod]
-        public void VerifyInsertDataOnClientTable()
+        public void VerifyInserClientTable()
         {
             var name = Helper.RandomString(5, true);
             var lastname = Helper.RandomString(5, true);
             var email = $"{Helper.RandomString(5, true)}@test.com";
             var programm = Helper.RandomString(10, true);
 
-            bool isInserted = Helper.InsertToClients(name, lastname, email, programm);
+            var isInserted = Api.InsertToClients(name, lastname, email, programm);
 
             Assert.IsTrue(isInserted, "Values were not inserted on Client Table");
+        }
+
+        [TestMethod]
+        public void VerifyUpdateClientTable()
+        {
+            var name = Helper.RandomString(5, true);
+            var lastname = Helper.RandomString(5, true);
+            var email = $"{Helper.RandomString(5, true)}@test.com";
+            var programm = Helper.RandomString(10, true);
+
+            var idClient = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
+
+            var isUpdated = Api.UpdateClients(idClient, name, lastname, email, programm);
+
+            Assert.IsTrue(isUpdated, "Values has not been updated on Client Table");
         }
 
         [TestMethod]

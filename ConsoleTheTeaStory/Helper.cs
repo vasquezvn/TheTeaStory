@@ -50,25 +50,6 @@ namespace ConsoleTheTeaStory
             }
         }
 
-        public static bool InsertToClients(string name, string lastname, string email, string programm)
-        {
-            bool result = false;
-
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\ivan.vasquez\source\repos\TheTeaStory\ConsoleTheTeaStory\Resources\Database1.mdf;Integrated Security=True");
-            string query = $"INSERT INTO [Clients] values('{name}', '{lastname}', '{email}', '{programm}')";
-
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.Connection.Open();
-            int i = cmd.ExecuteNonQuery();
-
-            if (i > 0)
-                result = true;
-
-            cmd.Connection.Close();
-
-            return result;
-        }
-
         public static IWebElement WaitUntilElementVisible(By elementLocator, int timeout = 10)
         {
             try
