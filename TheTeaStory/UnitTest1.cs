@@ -64,11 +64,23 @@ namespace TheTeaStory
             var email = $"{Helper.RandomString(5, true)}@test.com";
             var programm = Helper.RandomString(10, true);
 
-            var idClient = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
+            var randomRecord = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
+
+            var idClient = Api.GetIdByNumberRow(Tables.Clients, randomRecord);
 
             var isUpdated = Api.UpdateClients(idClient, name, lastname, email, programm);
 
             Assert.IsTrue(isUpdated, "Values has not been updated on Client Table");
+        }
+
+        [TestMethod]
+        public void VerifyDeleteClientTable()
+        {
+            var randomRecord = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
+            var idClient = Api.GetIdByNumberRow(Tables.Clients, randomRecord);
+            var isDeleted = Api.DeleteClient(idClient);
+
+            Assert.IsTrue(isDeleted, $"Record with Id {idClient} could not be deleted");
         }
 
         [TestMethod]
