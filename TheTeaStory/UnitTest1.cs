@@ -65,7 +65,6 @@ namespace TheTeaStory
             var programm = Helper.RandomString(10, true);
 
             var randomRecord = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
-
             var idClient = Api.GetIdByNumberRow(Tables.Clients, randomRecord);
 
             var isUpdated = Api.UpdateClients(idClient, name, lastname, email, programm);
@@ -78,9 +77,20 @@ namespace TheTeaStory
         {
             var randomRecord = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
             var idClient = Api.GetIdByNumberRow(Tables.Clients, randomRecord);
+
             var isDeleted = Api.DeleteClient(idClient);
 
             Assert.IsTrue(isDeleted, $"Record with Id {idClient} could not be deleted");
+        }
+
+        [TestMethod]
+        public void VerifyGetAllClients()
+        {
+            var numberRows = Api.GetNumberOfRows(Tables.Clients);
+
+            var isTotalRowsMatch = Api.PrintValidateNumberRecords(Tables.Clients, numberRows);
+
+            Assert.IsTrue(isTotalRowsMatch, "Number of rows in table doesn't match with number of printed records");
         }
 
         [TestMethod]

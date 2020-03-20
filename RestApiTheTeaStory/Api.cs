@@ -86,12 +86,14 @@ namespace RestApiTheTeaStory
                     break;
 
                 case Tables.Preferences:
+                    query = "SELECT * FROM Preferences";
+                    idRecord = GetId(query, randomRecord);
+
                     break;
 
                 default:
                     break;
             }
-
 
             return idRecord;
         }
@@ -99,14 +101,119 @@ namespace RestApiTheTeaStory
         public static bool DeleteClient(int idClient)
         {
             var result = false;
-            var query = $"DELETE FROM Clients WHERE idClient = {idClient}";
+            var queryClient = $"DELETE FROM Clients WHERE idClient = {idClient}";
+            var queryPreferences = $"DELETE FROM Preferences WHERE idClient = {idClient}";
 
-            var rowsAffected = ExecuteSqlCommand(query);
+            ExecuteSqlCommand(queryPreferences);
+
+            var rowsAffected = ExecuteSqlCommand(queryClient);
 
             if (rowsAffected > 0)
                 result = true;
 
             return result;
+        }
+
+        public static bool PrintValidateNumberRecords(Tables nameTable, int numberRows)
+        {
+            var result = false;
+            var recordsPrinted = 0;
+
+            switch (nameTable)
+            {
+                case Tables.Clients:
+                    recordsPrinted = PrintRecordsFromTable(Tables.Clients);
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            if (numberRows == recordsPrinted)
+                result = true;
+
+            return result;
+        }
+
+        private static int PrintRecordsFromTable(Tables nameTable)
+        {
+            var totalRecords = 0;
+            var query = string.Empty;
+            SqlCommand cmd;
+            SqlDataReader reader;
+
+            switch (nameTable)
+            {
+                case Tables.Clients:
+                    query = "SELECT * FROM Clients";
+                    cmd = new SqlCommand(query, con);
+
+                    try
+                    {
+                        cmd.Connection.Open();
+                        reader = cmd.ExecuteReader();
+
+                        Console.WriteLine("ClientID | \t FirstName | \t LastName | \t Email | \t Programme");
+                        Console.WriteLine("=================================================================");
+
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"{reader[0].ToString()} | " +
+                                $"\t {reader[1].ToString()} | " +
+                                $"\t {reader[2].ToString()} | " +
+                                $"\t {reader[3].ToString()} | " +
+                                $"\t {reader[4].ToString()}");
+                            totalRecords++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"DB connection can't be opened \n\nDetails: {ex.Message}");
+                    }
+                    finally
+                    {
+                        cmd.Connection.Close();
+                    }
+                    
+                    break;
+
+                case Tables.Preferences:
+                    query = "SELECT * FROM Preferences";
+                    cmd = new SqlCommand(query, con);
+
+                    try
+                    {
+                        cmd.Connection.Open();
+                        reader = cmd.ExecuteReader();
+
+                        Console.WriteLine("IdPreference | \t IdClient | \t Name");
+                        Console.WriteLine("===============================================");
+
+                        while (reader.Read())
+                        {
+                            Console.WriteLine($"{reader[0].ToString()} | " +
+                                $"\t {reader[1].ToString()} | " +
+                                $"\t {reader[2].ToString()} | ");
+                            totalRecords++;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception($"DB connection can't be opened \n\nDetails: {ex.Message}");
+                    }
+                    finally
+                    {
+                        cmd.Connection.Close();
+                    }
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            return totalRecords;
         }
 
         private static int GetId(string query, int numberRow)
