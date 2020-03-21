@@ -136,6 +136,78 @@ namespace RestApiTheTeaStory
             return result;
         }
 
+        public static bool IsNameRecordedInDB(string name)
+        {
+            var isRecorded = false;
+            var query = "SELECT * FROM Clients";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader reader;
+
+            try
+            {
+                cmd.Connection.Open();
+                reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    if (reader.GetString(1).Equals(name))
+                    {
+                        isRecorded = true;
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"DB connection can't be opened \n\nDetails: {ex.Message}");
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            return isRecorded;
+        }
+
+        public static bool IsTherePreferencesByClientId(int idClient)
+        {
+            var result = false;
+            var query = $"SELECT * FROM Preferences WHERE idClient = {idClient}";
+            SqlCommand cmd = new SqlCommand(query, con);
+            SqlDataReader reader;
+            var counterRecords = 0;
+
+            try
+            {
+                cmd.Connection.Open();
+                reader = cmd.ExecuteReader();
+
+                Console.WriteLine($"Preferences registered by IdClient: {idClient}");
+                Console.WriteLine("===============================================");
+
+                while (reader.Read())
+                {
+                    Console.WriteLine($"{reader.GetString(2)} \n");
+                    counterRecords++;
+                }
+                if (counterRecords == 0)
+                    Console.WriteLine("N/A");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"DB connection can't be opened \n\nDetails: {ex.Message}");
+            }
+            finally
+            {
+                cmd.Connection.Close();
+            }
+
+            if (counterRecords > 0)
+                result = true;
+
+            return result;
+        }
+
         private static int PrintRecordsFromTable(Tables nameTable)
         {
             var totalRecords = 0;

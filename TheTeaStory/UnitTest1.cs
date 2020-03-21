@@ -94,6 +94,32 @@ namespace TheTeaStory
         }
 
         [TestMethod]
+        public void VerifyGetByName()
+        {
+            var name = Helper.RandomString(5, true);
+            var lastname = Helper.RandomString(5, true);
+            var email = $"{Helper.RandomString(5, true)}@test.com";
+            var programm = Helper.RandomString(10, true);
+
+            Api.InsertToClients(name, lastname, email, programm);
+
+            var isNameInDB = Api.IsNameRecordedInDB(name);
+
+            Assert.IsTrue(isNameInDB, $"Record can't be found by name: {name}");
+        }
+
+        [TestMethod]
+        public void VerifyGetPreferenceById()
+        {
+            var randomRecord = Helper.RandomNumber(1, Api.GetNumberOfRows(Tables.Clients));
+            var idClient = Api.GetIdByNumberRow(Tables.Clients, randomRecord);
+
+            var isTherePreferences = Api.IsTherePreferencesByClientId(idClient);
+
+            Assert.IsTrue(isTherePreferences, $"There isn't preferences to Client by id: {idClient}");
+        }
+
+        [TestMethod]
         public void VerifyData()
         {
             Helper.GetData();
