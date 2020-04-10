@@ -2,7 +2,10 @@
 using ConsoleTheTeaStory;
 using ConsoleTheTeaStory.Pages;
 using RestApiTheTeaStory;
+using LinqProject;
 using static RestApiTheTeaStory.Api;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace TheTeaStory
 {
@@ -123,6 +126,33 @@ namespace TheTeaStory
         public void VerifyData()
         {
             Helper.GetData();
+        }
+
+        [TestMethod]
+        public void VerifyLinq()
+        {
+            Program p = new Program();
+            var expected = new List<Vendor>()
+            {
+                { new Vendor() { Id = 22, CompanyName = "Amalgamed Toys", Email = "a@abc.com" } },
+                { new Vendor() { Id = 28, CompanyName = "Toys block inc", Email = "block@abc.com" } },
+                { new Vendor() { Id = 25, CompanyName = "Car Toys", Email = "car@abc.com" } },
+                { new Vendor() { Id = 42, CompanyName = "Toys for Fun", Email = "fun@abc.com" }}
+            };
+
+            //var vendorQuery = from v in p.vendors
+            //                  where v.CompanyName.Contains("Toy")
+            //                  orderby v.CompanyName
+            //                  select v;
+
+            //var vendorQuery = p.vendors.Where(p.FilterCompanies)
+            //    .OrderBy(p.OrderCompaniesByName);
+
+            // implementando lamba expresions
+            var vendorQuery = p.vendors.Where(v => v.CompanyName.Contains("toy"))
+                .OrderBy(v => v.CompanyName);
+
+            CollectionAssert.AreEqual(expected, vendorQuery.ToList());
         }
 
         [TestCleanup]

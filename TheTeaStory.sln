@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationTheTeaStory",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestApiTheTeaStory", "RestApiTheTeaStory\RestApiTheTeaStory.csproj", "{C99314C7-0F6D-4EC8-92B3-30D18E039199}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqProject", "LinqProject\LinqProject.csproj", "{6AADD125-54AB-4529-92B0-00CADFC732E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C99314C7-0F6D-4EC8-92B3-30D18E039199}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C99314C7-0F6D-4EC8-92B3-30D18E039199}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C99314C7-0F6D-4EC8-92B3-30D18E039199}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AADD125-54AB-4529-92B0-00CADFC732E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AADD125-54AB-4529-92B0-00CADFC732E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AADD125-54AB-4529-92B0-00CADFC732E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AADD125-54AB-4529-92B0-00CADFC732E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
